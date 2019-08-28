@@ -2,7 +2,7 @@ import React from "react";
 import Jumbotron from "./components/Jumbotron/jumbotron";
 import Images from "./components/Images/images";
 import Wrapper from "./components/Wrapper/wrapper";
-import friends from "./components/friends.json";
+import friends from "./components/friends.json.js.js";
 // import Score from "./components/Score/score"
 
 class App extends React.Component {
