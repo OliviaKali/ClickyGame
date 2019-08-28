@@ -9,7 +9,8 @@ class App extends React.Component {
   state = {
     friends,
     score: 0,
-    results: []
+    results: [],
+    clicked: false
   };
 
   shuffle = array => {
@@ -33,19 +34,19 @@ class App extends React.Component {
   //   alert("Game over. Try Again.")
   // }
 
-  handleIncrement = id => {
-    // if (!id) {
-    //   score=0
-    //   alert("Game over. Try Again.")
-    // }
+  handleIncrement = (id, booleon) => {
+    if (this.state.clicked === true) {
+      this.setState({ score: 0 });
+      alert("Game over. Try Again.")
+    }
     // if (this.results.includes(id)) {
     // }
-    // else {
+    else {
     console.log("click hit");
     this.setState({ score: this.state.score + 1 });
     //   // this.setState({results: }) .filter
     //     //filter through array
-    // }
+    }
   };
 
   //Push into Array
@@ -57,11 +58,15 @@ class App extends React.Component {
     // this.setState({ friends });
   };
 
-  removeFriend = id => {
-    //onclick function to remove id without removing the picture
-    const friends = this.state.friends.filter(friend => friend.id !== id);
-    this.setState({ friends });
-  };
+  // removeFriend = id => {
+  //   //onclick function to remove id without removing the picture
+  //   const friends = this.state.friends.filter(friend => friend.id !== id);
+  //   this.setState({ friends });
+  // };
+
+  checkClicked = id => {
+
+  }
 
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
@@ -75,12 +80,14 @@ class App extends React.Component {
         <Wrapper>
           {this.state.friends.map(friend => (
             <Images
-              removeFriend={this.removeFriend}
+              // removeFriend={this.removeFriend}
+              addFriend={this.addFriend} //push into array so each image has an id for the shuffle
               handleIncrement={this.handleIncrement}
               id={friend.id}
               key={friend.id}
               name={friend.name}
               image={friend.image}
+              booleon={friend.booleon}
             />
           ))}
         </Wrapper>
