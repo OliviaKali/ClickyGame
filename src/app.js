@@ -1,8 +1,8 @@
 import React from "react";
-import Jumbotron from "./components/Jumbotron/jumbotron";
 import Images from "./components/Images/images";
 import Wrapper from "./components/Wrapper/wrapper";
 import friends from "./components/friends.json";
+import "./styling.css"
 // import Score from "./components/Score/score"
 
 class App extends React.Component {
@@ -20,11 +20,6 @@ class App extends React.Component {
     return array;
   };
 
-  // //Remove id  // if (!id) {
-  //   score=0
-  //   alert("Game over. Try Again.")
-  // }
-
   handleIncrement = id => {
     if (this.state.clicked.includes(id)) {
       this.setState({
@@ -37,18 +32,6 @@ class App extends React.Component {
         friends: this.randomize(this.state.friends)
       });
     }
-    // if (this.state.clicked === true) {
-    //   this.setState({ score: 0 });
-    //   alert("Game over. Try Again.")
-    // }
-    // // if (this.results.includes(id)) {
-    // // }
-    // else {
-    // console.log("click hit");
-    // this.setState({ score: this.state.score + 1 });
-    // //   // this.setState({results: }) .filter
-    // //     //filter through array
-    // }
   };
 
   // Map over this.state.friends and render a FriendCard component for each friend object
@@ -57,21 +40,17 @@ class App extends React.Component {
     return (
       <div>
         <div className="alert alert-success fixed-top" role="alert">
-          <h4>Clicky Game!</h4>
-          <h6 className="score">Score: {this.state.clicked.length}</h6>
+          <h5 className="navTitle">Clicky Game! Click on an image to earn points, but don't click on any more than once!</h5>
+          <h5 className="score">Score: {this.state.clicked.length}</h5>
         </div>
-        <Jumbotron />
         <Wrapper>
           {this.state.friends.map(friend => (
             <Images
-              // removeFriend={this.removeFriend}
-              addFriend={this.addFriend} //push into array so each image has an id for the shuffle
               handleIncrement={this.handleIncrement}
               id={friend.id}
               key={friend.id}
               name={friend.name}
               image={friend.image}
-              booleon={friend.booleon}
             />
           ))}
         </Wrapper>
