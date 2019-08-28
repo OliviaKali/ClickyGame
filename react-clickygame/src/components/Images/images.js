@@ -6,7 +6,7 @@ function Images(props) {
     <div className="card">
       <div className="img-container">
         
-        <img className="card-img-top" alt={props.name} src={props.image} onClick={props.handleIncrement} clicked={props.true}/>
+        <img className="card-img-top" alt={props.name} src={props.image} onClick={() => props.handleIncrement(props.id)}/>
         {/* //onClick={props.handleIncrement(props.id) */}
         {/* <button className="imageNames" onClick={this.handleIncrement}>{props.name}</button> */}
       </div>

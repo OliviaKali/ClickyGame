@@ -8,23 +8,14 @@ import friends from "./components/friends.json";
 class App extends React.Component {
   state = {
     friends,
-    score: 0,
-    results: [],
-    clicked: false
+    clicked: [],
+    highScore: 0
   };
 
-  shuffle = array => {
-    var m = array.length,
-      t,
-      i;
-    // While there remain elements to shuffle…
-    while (m) {
-      // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
-      // And swap it with the current element.
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
+  randomize = array => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
   };
@@ -34,47 +25,40 @@ class App extends React.Component {
   //   alert("Game over. Try Again.")
   // }
 
-  handleIncrement = (id, booleon) => {
-    if (this.state.clicked === true) {
-      this.setState({ score: 0 });
-      alert("Game over. Try Again.")
+  handleIncrement = id => {
+    if (this.state.clicked.includes(id)) {
+      this.setState({
+        clicked: []
+      })
+      // they lose
+    } else {
+      this.setState({
+        clicked: [...this.state.clicked, id],
+        friends: this.randomize(this.state.friends)
+      });
     }
-    // if (this.results.includes(id)) {
+    // if (this.state.clicked === true) {
+    //   this.setState({ score: 0 });
+    //   alert("Game over. Try Again.")
     // }
-    else {
-    console.log("click hit");
-    this.setState({ score: this.state.score + 1 });
-    //   // this.setState({results: }) .filter
-    //     //filter through array
-    }
+    // // if (this.results.includes(id)) {
+    // // }
+    // else {
+    // console.log("click hit");
+    // this.setState({ score: this.state.score + 1 });
+    // //   // this.setState({results: }) .filter
+    // //     //filter through array
+    // }
   };
-
-  //Push into Array
-  addFriend = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    const results = this.state.friends.filter(friend => friend.id === id);
-    this.setState({ results: results });
-    // const friends = this.state.friends.filter(friend => friend.id !== id);
-    // this.setState({ friends });
-  };
-
-  // removeFriend = id => {
-  //   //onclick function to remove id without removing the picture
-  //   const friends = this.state.friends.filter(friend => friend.id !== id);
-  //   this.setState({ friends });
-  // };
-
-  checkClicked = id => {
-
-  }
 
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
+    console.log(this.state);
     return (
       <div>
         <div className="alert alert-success fixed-top" role="alert">
           <h4>Clicky Game!</h4>
-          <h6 className="score">Score: {this.state.score}</h6>
+          <h6 className="score">Score: {this.state.clicked.length}</h6>
         </div>
         <Jumbotron />
         <Wrapper>
